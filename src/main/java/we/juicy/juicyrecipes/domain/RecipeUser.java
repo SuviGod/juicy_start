@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Data
-public class User {
+public class RecipeUser {
     @Id
     private Integer id;
     private String name;

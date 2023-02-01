@@ -11,19 +11,37 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import we.juicy.juicyrecipes.domain.Recipe;
 import we.juicy.juicyrecipes.service.RecipeService;
 
+import java.util.Optional;
+import java.util.Set;
+
 
 @Controller
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping(value = "/recipe")
 public class RecipeController {
+
     private final RecipeService recipeService;
 
-
-    @RequestMapping(value = "/cake", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public String getRecipe(Model model) {
-        log.info("requesting for apple cake");
-        return "index.html";
+        log.info("Requesting for all recipes");
+        Set<Recipe> allRecipes = recipeService.findAll();
+        model.addAttribute("recipes", allRecipes);
+        return "recipe/all";
+    }
+
+    @GetMapping("/{id}/show")
+    public String getRecipeById(@PathVariable("id") Integer id, Model model) {
+        log.info("Requesting for recipe with id -> {}", id);
+        Optional<Recipe> maybeRecipe = recipeService.findById(id);
+        if (maybeRecipe.isPresent()) {
+            Recipe recipe = maybeRecipe.get();
+            model.addAttribute("recipe", recipe);
+            return "recipe/show";
+        }
+
+        return "error";
     }
 
     @GetMapping(value = "/byName/{name}")
