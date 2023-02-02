@@ -1,5 +1,5 @@
 package we.juicy.juicyrecipes.domain;
 
 public enum TypeOfMeasure {
-    SPOONS, GRAMS, LITERS
+    SPOONS, GRAMS, LITERS, POINTS,
 }

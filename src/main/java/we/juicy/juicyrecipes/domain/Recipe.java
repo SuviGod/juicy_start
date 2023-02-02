@@ -12,8 +12,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.Fetch;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data @Builder @NoArgsConstructor @AllArgsConstructor
@@ -29,6 +31,11 @@ public class Recipe {
     @Enumerated(value = EnumType.STRING)
     private Difficulty difficulty;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Contents> necessaryAmount;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "recipe")
+    private List<Contents> necessaryAmount = new ArrayList<>();
+
+    public void addContents(Contents contents) {
+        necessaryAmount.add(contents);
+        contents.setRecipe(this);
+    }
 }

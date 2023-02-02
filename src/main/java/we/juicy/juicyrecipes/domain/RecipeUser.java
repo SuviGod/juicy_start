@@ -14,6 +14,6 @@ public class RecipeUser {
     private Integer id;
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "recipeUser")
     private List<Contents> amountPresent;
 }
