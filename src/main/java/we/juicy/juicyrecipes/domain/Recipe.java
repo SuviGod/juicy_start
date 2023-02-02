@@ -7,12 +7,16 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.Fetch;
 
 import java.util.List;
 
-@Data
+@Data @Builder @NoArgsConstructor @AllArgsConstructor
 @Entity
 public class Recipe {
     @Id
