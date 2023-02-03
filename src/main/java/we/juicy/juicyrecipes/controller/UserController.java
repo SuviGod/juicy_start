@@ -7,10 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import we.juicy.juicyrecipes.domain.Recipe;
 import we.juicy.juicyrecipes.domain.RecipeUser;
 import we.juicy.juicyrecipes.service.UserService;
-import we.juicy.juicyrecipes.service.UserServiceImpl;
 
 import java.util.Optional;
 
@@ -34,4 +32,7 @@ public class UserController {
 
         return "error";
     }
+
+
+
 }
