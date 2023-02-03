@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import we.juicy.juicyrecipes.domain.Recipe;
 import we.juicy.juicyrecipes.service.RecipeService;
 
@@ -16,8 +13,8 @@ import java.util.Set;
 
 
 @Controller
-@RequiredArgsConstructor
 @Slf4j
+@RequiredArgsConstructor
 @RequestMapping(value = "/recipe")
 public class RecipeController {
 
@@ -49,5 +46,23 @@ public class RecipeController {
     public Recipe getRecipeByName(@PathVariable("name") String name){
         return recipeService.findOneByName(name);
     }
+
+    @GetMapping(value = "/new")
+    public String saveRecipe(Model model){
+        model.addAttribute("recipe", new Recipe());
+        log.info("In recipe/new ");
+        return "recipe/recipeform";
+    }
+
+    @PostMapping(value = "/")
+    public String saveOrUpdate(@ModelAttribute Recipe recipeToSave){
+        log.info("In post mapping method ");
+        Recipe savedRecipe = recipeService.save(recipeToSave);
+        return "redirect:/recipe/" + savedRecipe.getId() + "/show";
+    }
+
+
+
+
 
 }

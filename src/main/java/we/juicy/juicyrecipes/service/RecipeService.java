@@ -9,4 +9,6 @@ public interface RecipeService {
     Set<Recipe> findAll();
     Optional<Recipe> findById(Integer id);
     Recipe findOneByName(String name);
+
+    Recipe save(Recipe recipe);
 }

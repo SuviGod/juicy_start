@@ -3,6 +3,7 @@ package we.juicy.juicyrecipes.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import we.juicy.juicyrecipes.domain.Recipe;
 import we.juicy.juicyrecipes.repository.RecipeRepository;
 
@@ -33,4 +34,13 @@ public class RecipeServiceImpl implements RecipeService {
     public Recipe findOneByName(String name) {
         return recipeRepository.findOneByName(name);
     }
+
+    @Transactional
+    @Override
+    public Recipe save(Recipe recipe){
+        return recipeRepository.save(recipe);
+    }
+
+
+
 }
