@@ -4,10 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import we.juicy.juicyrecipes.domain.Ingredient;
+import we.juicy.juicyrecipes.domain.Recipe;
 import we.juicy.juicyrecipes.service.IngredientService;
 
 import java.util.Optional;
@@ -41,5 +40,19 @@ public class IngredientController {
         }
 
         return "error";
+    }
+
+    @GetMapping(value = "/new")
+    public String createIngredientForm(Model model){
+        model.addAttribute("ingredient", new Ingredient());
+        log.info("In ingredient/new endpoint");
+        return "ingredient/creation_form";
+    }
+
+    @PostMapping(value = "/")
+    public String updateIngredient(@ModelAttribute Ingredient ingredientToUpdate){
+        log.info("In ingredient post mapping method ");
+        Ingredient updatedIngredient = ingredientService.updateIngredient(ingredientToUpdate);
+        return "redirect:/ingredient/" + updatedIngredient.getId() + "/show";
     }
 }

@@ -13,4 +13,6 @@ public interface IngredientService {
     List<Ingredient> findAllIngredients ();
 
     Set<Ingredient> findAll();
+
+    Ingredient updateIngredient(Ingredient ingredientToUpdate);
 }

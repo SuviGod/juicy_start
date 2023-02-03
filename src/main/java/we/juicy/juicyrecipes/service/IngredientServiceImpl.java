@@ -30,6 +30,11 @@ public class IngredientServiceImpl implements IngredientService{
     }
 
     @Override
+    public Ingredient updateIngredient(Ingredient ingredientToUpdate) {
+        return ingredientRepository.save(ingredientToUpdate);
+    }
+
+    @Override
     public Optional<Ingredient> findById(Integer id){
         return ingredientRepository.findById(id);
     }
