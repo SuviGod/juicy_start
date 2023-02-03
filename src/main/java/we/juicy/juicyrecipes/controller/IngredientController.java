@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.util.StringUtils;
 import we.juicy.juicyrecipes.domain.Ingredient;
 import we.juicy.juicyrecipes.domain.Recipe;
 import we.juicy.juicyrecipes.service.IngredientService;
@@ -20,11 +21,16 @@ public class IngredientController {
     private final IngredientService ingredientService;
 
     @GetMapping(value ="/all")
-    public String showAllIngredients(Model model){
+    public String showAllIngredients(@RequestParam(required = false) String category, Model model){
+        if (StringUtils.isEmptyOrWhitespace(category)) {
+            log.info("Requesting for all ingredients");
+            Set<Ingredient> allIngredients = ingredientService.findAll();
+            model.addAttribute("ingredients", allIngredients);
+            return "ingredient/all";
+        }
 
-        log.info("Requesting for all ingredients");
-        Set<Ingredient> allIngredients = ingredientService.findAll();
-        model.addAttribute("ingredients", allIngredients);
+
+
         return "ingredient/all";
     }
 
@@ -51,7 +57,7 @@ public class IngredientController {
 
     @PostMapping(value = "/")
     public String updateIngredient(@ModelAttribute Ingredient ingredientToUpdate){
-        log.info("In ingredient post mapping method ");
+        log.info("In ingredient post mapping method - creating new ingredient");
         Ingredient updatedIngredient = ingredientService.updateIngredient(ingredientToUpdate);
         return "redirect:/ingredient/" + updatedIngredient.getId() + "/show";
     }

@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface UserService {
     Optional<RecipeUser> findById(Integer id);
+    void saveProfile(RecipeUser recipeUser);
 }

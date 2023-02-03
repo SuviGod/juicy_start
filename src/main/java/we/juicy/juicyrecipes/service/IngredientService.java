@@ -10,9 +10,9 @@ import java.util.Set;
 public interface IngredientService {
     Optional<Ingredient> findById(Integer id);
 
-    List<Ingredient> findAllIngredients ();
-
     Set<Ingredient> findAll();
+
+
 
     Ingredient updateIngredient(Ingredient ingredientToUpdate);
 }

@@ -17,10 +17,6 @@ import java.util.Set;
 public class IngredientServiceImpl implements IngredientService{
 
     private final IngredientRepository ingredientRepository;
-    @Override
-    public List<Ingredient> findAllIngredients (){
-        return (List<Ingredient>) ingredientRepository.findAll();
-    }
 
     @Override
     public Set<Ingredient> findAll() {

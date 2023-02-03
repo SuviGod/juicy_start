@@ -37,12 +37,10 @@ public class RecipeController {
             model.addAttribute("recipe", recipe);
             return "recipe/show";
         }
-
         return "error";
     }
 
     @GetMapping(value = "/byName/{name}")
-    //можливість перегляду рецепту обраної страви;
     public Recipe getRecipeByName(@PathVariable("name") String name){
         return recipeService.findOneByName(name);
     }
@@ -50,13 +48,13 @@ public class RecipeController {
     @GetMapping(value = "/new")
     public String saveRecipe(Model model){
         model.addAttribute("recipe", new Recipe());
-        log.info("In recipe/new ");
+        log.info("Requesting to create new recipe");
         return "recipe/recipeform";
     }
 
     @PostMapping(value = "/")
     public String saveOrUpdate(@ModelAttribute Recipe recipeToSave){
-        log.info("In post mapping method ");
+        log.info("In post mapping method - creating recipe -> {}", recipeToSave.getName());
         Recipe savedRecipe = recipeService.save(recipeToSave);
         return "redirect:/recipe/" + savedRecipe.getId() + "/show";
     }

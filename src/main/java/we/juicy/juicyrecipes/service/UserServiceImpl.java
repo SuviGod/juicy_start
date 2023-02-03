@@ -13,10 +13,18 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService{
+
     private final UserRepository userRepository;
+
+    private static final Integer USER_STATIC_ID = 1;
 
     @Override
     public Optional<RecipeUser> findById(Integer id){
         return userRepository.findById(id);
+    }
+
+    @Override
+    public void saveProfile(RecipeUser user) {
+
     }
 }
