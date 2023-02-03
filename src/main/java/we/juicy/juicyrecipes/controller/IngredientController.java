@@ -11,6 +11,7 @@ import we.juicy.juicyrecipes.domain.Ingredient;
 import we.juicy.juicyrecipes.service.IngredientService;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Controller
 @Slf4j
@@ -20,9 +21,12 @@ public class IngredientController {
     private final IngredientService ingredientService;
 
     @GetMapping(value ="/all")
-    public String showAllIngredients(){
+    public String showAllIngredients(Model model){
 
-        return ingredientService.findAllIngredients().toString();
+        log.info("Requesting for all ingredients");
+        Set<Ingredient> allIngredients = ingredientService.findAll();
+        model.addAttribute("ingredients", allIngredients);
+        return "ingredient/all";
     }
 
 
