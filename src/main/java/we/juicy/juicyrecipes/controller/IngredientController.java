@@ -7,7 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
 import we.juicy.juicyrecipes.domain.Ingredient;
-import we.juicy.juicyrecipes.domain.Recipe;
+import we.juicy.juicyrecipes.domain.IngredientCategory;
+import we.juicy.juicyrecipes.service.IngredientCategoryService;
 import we.juicy.juicyrecipes.service.IngredientService;
 
 import java.util.Optional;
@@ -20,17 +21,26 @@ import java.util.Set;
 public class IngredientController {
     private final IngredientService ingredientService;
 
+    private final IngredientCategoryService ingredientCategoryService;
+
     @GetMapping(value ="/all")
     public String showAllIngredients(@RequestParam(required = false) String category, Model model){
+        log.info("Requesting for all ingredient categories");
+        Set <IngredientCategory> ingredientCategories = ingredientCategoryService.findAll();
+        model.addAttribute("categories", ingredientCategories);
+
         if (StringUtils.isEmptyOrWhitespace(category)) {
             log.info("Requesting for all ingredients");
             Set<Ingredient> allIngredients = ingredientService.findAll();
             model.addAttribute("ingredients", allIngredients);
+            log.info("going into ingredient/all");
             return "ingredient/all";
         }
 
-
-
+        log.info("Requesting for all ingredients for group {}", category);
+        Set<Ingredient> allIngredients = ingredientService.findAllByCategory(category);
+        model.addAttribute("ingredients", allIngredients);
+        log.info("going into ingredient/all with category");
         return "ingredient/all";
     }
 

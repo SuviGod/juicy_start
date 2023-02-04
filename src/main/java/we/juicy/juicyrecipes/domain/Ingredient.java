@@ -1,15 +1,13 @@
 package we.juicy.juicyrecipes.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+
 
 @Entity
 @Data @Builder @NoArgsConstructor @AllArgsConstructor
@@ -22,4 +20,13 @@ public class Ingredient {
 
     @Enumerated(EnumType.STRING)
     private TypeOfMeasure type;
+
+    @ManyToMany(mappedBy = "ingredients")
+//    @ManyToMany
+//    @JoinTable(
+//            name = "ingredient_group",
+//            joinColumns = @JoinColumn(name = "group_id"),
+//            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
+//    )
+    private List<IngredientCategory> categories;
 }

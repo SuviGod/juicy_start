@@ -5,16 +5,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import we.juicy.juicyrecipes.domain.Contents;
-import we.juicy.juicyrecipes.domain.Difficulty;
-import we.juicy.juicyrecipes.domain.Ingredient;
-import we.juicy.juicyrecipes.domain.Recipe;
-import we.juicy.juicyrecipes.domain.RecipeUser;
-import we.juicy.juicyrecipes.domain.TypeOfMeasure;
-import we.juicy.juicyrecipes.repository.ContentsRepository;
-import we.juicy.juicyrecipes.repository.IngredientRepository;
-import we.juicy.juicyrecipes.repository.RecipeRepository;
-import we.juicy.juicyrecipes.repository.UserRepository;
+import we.juicy.juicyrecipes.domain.*;
+import we.juicy.juicyrecipes.repository.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,10 +21,13 @@ public class RecipePreload implements ApplicationListener<ContextRefreshedEvent>
     private final ContentsRepository contentsRepository;
     private final UserRepository userRepository;
 
+    private final IngredientCategoryRepository ingredientCategoryRepository;
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         recipeRepository.saveAll(getDefaultRecipes());
         userRepository.save(createBaseUser());
+        ingredientCategoryRepository.saveAll(createDefaultIngredientCategories());
     }
 
     private List<Recipe> getDefaultRecipes() {
@@ -55,7 +50,19 @@ public class RecipePreload implements ApplicationListener<ContextRefreshedEvent>
         Contents appleContentsIngredient = Contents.builder().ingredient(appleIngredient).recipe(applePie).amount(1).id(1).build();
         contentsRepository.save(appleContentsIngredient);
 
+        Ingredient orangeIngredient = Ingredient.builder().id(2).type(TypeOfMeasure.POINTS).name("Orange").build();
+        ingredientRepository.save(orangeIngredient);
+        Contents orangeContentsIngredient = Contents.builder().ingredient(orangeIngredient).recipe(orangePie).amount(2).id(2).build();
+        contentsRepository.save(orangeContentsIngredient);
+
         return List.of(applePie, orangePie, pearPie);
+    }
+
+    private List<IngredientCategory> createDefaultIngredientCategories(){
+        IngredientCategory fruits = IngredientCategory.builder()
+                .ingredients(ingredientRepository.findAllByIdLessThan(2))
+                .name("fruits").id(1).build();
+        return List.of(fruits);
     }
 
     private RecipeUser createBaseUser() {

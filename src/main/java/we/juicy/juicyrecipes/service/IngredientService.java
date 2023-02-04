@@ -1,6 +1,7 @@
 package we.juicy.juicyrecipes.service;
 
 import we.juicy.juicyrecipes.domain.Ingredient;
+import we.juicy.juicyrecipes.domain.IngredientCategory;
 import we.juicy.juicyrecipes.domain.Recipe;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface IngredientService {
 
 
     Ingredient updateIngredient(Ingredient ingredientToUpdate);
+
+    Set<Ingredient> findAllByCategory(String category);
 }
