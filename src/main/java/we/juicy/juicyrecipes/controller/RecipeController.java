@@ -58,9 +58,4 @@ public class RecipeController {
         Recipe savedRecipe = recipeService.save(recipeToSave);
         return "redirect:/recipe/" + savedRecipe.getId() + "/show";
     }
-
-
-
-
-
 }
