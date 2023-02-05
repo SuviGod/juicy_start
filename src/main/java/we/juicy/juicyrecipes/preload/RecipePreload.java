@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 import we.juicy.juicyrecipes.domain.*;
 import we.juicy.juicyrecipes.repository.*;
 
@@ -28,6 +27,7 @@ public class RecipePreload implements ApplicationListener<ContextRefreshedEvent>
         recipeRepository.saveAll(getDefaultRecipes());
         userRepository.save(createBaseUser());
         ingredientCategoryRepository.saveAll(createDefaultIngredientCategories());
+        ingredientRepository.saveAll(createIngredientsWithCategory());
     }
 
     private List<Recipe> getDefaultRecipes() {
@@ -63,6 +63,16 @@ public class RecipePreload implements ApplicationListener<ContextRefreshedEvent>
                 .ingredients(ingredientRepository.findAllByIdLessThan(2))
                 .name("fruits").id(1).build();
         return List.of(fruits);
+    }
+
+    private List<Ingredient> createIngredientsWithCategory(){
+        Ingredient cherry = Ingredient.builder()
+                .categories(ingredientCategoryRepository.findAll())
+                .id(3)
+                .name("cherry")
+                .type(TypeOfMeasure.POINTS)
+                .build();
+        return List.of(cherry);
     }
 
     private RecipeUser createBaseUser() {

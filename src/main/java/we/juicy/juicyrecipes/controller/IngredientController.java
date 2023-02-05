@@ -51,7 +51,7 @@ public class IngredientController {
         Optional<Ingredient> maybeIngredient = ingredientService.findById(id);
         if (maybeIngredient.isPresent()) {
             Ingredient ingredient = maybeIngredient.get();
-            model.addAttribute("indredient", ingredient);
+            model.addAttribute("ingredient", ingredient);
             return "ingredient/show";
         }
 
@@ -60,8 +60,12 @@ public class IngredientController {
 
     @GetMapping(value = "/new")
     public String createIngredientForm(Model model){
+        log.info("Requesting for all ingredient categories");
+        Set<IngredientCategory> allIngredientCategories = ingredientCategoryService.findAll();
+        model.addAttribute("allCategories", allIngredientCategories);
+
         model.addAttribute("ingredient", new Ingredient());
-        log.info("In ingredient/new endpoint");
+        log.info("Going to ingredient/creation_form view");
         return "ingredient/creation_form";
     }
 

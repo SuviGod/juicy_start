@@ -22,11 +22,5 @@ public class Ingredient {
     private TypeOfMeasure type;
 
     @ManyToMany(mappedBy = "ingredients")
-//    @ManyToMany
-//    @JoinTable(
-//            name = "ingredient_group",
-//            joinColumns = @JoinColumn(name = "group_id"),
-//            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
-//    )
     private List<IngredientCategory> categories;
 }
