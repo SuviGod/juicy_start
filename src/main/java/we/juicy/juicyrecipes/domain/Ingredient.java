@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,5 +23,5 @@ public class Ingredient {
     private TypeOfMeasure type;
 
     @ManyToMany(mappedBy = "ingredients")
-    private List<IngredientCategory> categories;
+    private List<IngredientCategory> categories = new ArrayList<>();
 }

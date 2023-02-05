@@ -4,8 +4,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import we.juicy.juicyrecipes.domain.Contents;
 import we.juicy.juicyrecipes.domain.Recipe;
+import we.juicy.juicyrecipes.service.IngredientService;
 import we.juicy.juicyrecipes.service.RecipeService;
 
 import java.util.Optional;
@@ -19,6 +26,7 @@ import java.util.Set;
 public class RecipeController {
 
     private final RecipeService recipeService;
+    private final IngredientService ingredientService;
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public String getRecipe(Model model) {
@@ -57,5 +65,25 @@ public class RecipeController {
         log.info("In post mapping method - creating recipe -> {}", recipeToSave.getName());
         Recipe savedRecipe = recipeService.save(recipeToSave);
         return "redirect:/recipe/" + savedRecipe.getId() + "/show";
+    }
+
+    @GetMapping("/{recipeId}/ingredients/new")
+    public String addNewIngredient(@PathVariable("recipeId") Integer recipeId, Model model) {
+        model.addAttribute("ingredients", ingredientService.findAll());
+        Optional<Recipe> maybeRecipe = recipeService.findById(recipeId);
+        if (maybeRecipe.isEmpty())
+            return "error";
+
+        model.addAttribute("content", new Contents());
+        model.addAttribute("recipe", maybeRecipe.get());
+        return "/recipe/ingredient_contents_form";
+    }
+
+    @PostMapping("/{recipeId}/ingredients/new")
+    public String saveAddingNewIngredient(@ModelAttribute Contents contents, @PathVariable("recipeId") Integer recipeId) {
+        log.info("Saving ingredient contents for recipe -> {}, id -> {}", contents, recipeId);
+        recipeService.addIngredient(recipeId, contents);
+
+        return "redirect:/recipe/" + recipeId + "/show";
     }
 }

@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import we.juicy.juicyrecipes.domain.Contents;
 import we.juicy.juicyrecipes.domain.Recipe;
+import we.juicy.juicyrecipes.repository.ContentsRepository;
 import we.juicy.juicyrecipes.repository.RecipeRepository;
 
 import java.util.HashSet;
@@ -17,6 +19,7 @@ import java.util.Set;
 public class RecipeServiceImpl implements RecipeService {
 
     private final RecipeRepository recipeRepository;
+    private final ContentsRepository contentsRepository;
 
     @Override
     public Set<Recipe> findAll() {
@@ -33,6 +36,21 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public Recipe findOneByName(String name) {
         return recipeRepository.findOneByName(name);
+    }
+
+    @Transactional
+    @Override
+    public Recipe addIngredient(Integer recipeId, Contents contents) {
+        Optional<Recipe> maybeRecipe = recipeRepository.findById(recipeId);
+        if (maybeRecipe.isEmpty())
+            throw new RuntimeException("Recipe with id is not found");
+
+        Recipe recipe = maybeRecipe.get();
+        contents.setRecipe(recipe);
+
+        Contents savedContents = contentsRepository.save(contents);
+        recipe.addContents(savedContents);
+        return recipeRepository.save(recipe);
     }
 
     @Transactional

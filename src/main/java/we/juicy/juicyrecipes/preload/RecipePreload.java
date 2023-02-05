@@ -25,7 +25,7 @@ public class RecipePreload implements ApplicationListener<ContextRefreshedEvent>
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         recipeRepository.saveAll(getDefaultRecipes());
-        userRepository.save(createBaseUser());
+//        userRepository.save(createBaseUser());
         ingredientCategoryRepository.saveAll(createDefaultIngredientCategories());
         ingredientRepository.saveAll(createIngredientsWithCategory());
     }
