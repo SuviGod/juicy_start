@@ -4,14 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import we.juicy.juicyrecipes.domain.Contents;
 import we.juicy.juicyrecipes.domain.RecipeUser;
+import we.juicy.juicyrecipes.service.IngredientService;
 import we.juicy.juicyrecipes.service.SingleUserService;
-import we.juicy.juicyrecipes.service.UserService;
 
 import java.util.Optional;
 
@@ -22,8 +19,9 @@ import java.util.Optional;
 public class UserController {
 
     private final SingleUserService userService;
+    private final IngredientService ingredientService;
 
-    @GetMapping
+    @GetMapping()
     public String getUser(Model model) {
         try {
             RecipeUser currentUser = userService.getCurrentUser();
@@ -49,5 +47,35 @@ public class UserController {
         log.info("Saving user -> {}", user);
         userService.saveUser(user);
         return "redirect:/me";
+    }
+
+    @GetMapping("/{userId}/ingredients/new")
+    public String addNewIngredient(@PathVariable("userId") Integer userId, Model model ){
+        model.addAttribute("ingredients", ingredientService.findAll());
+        Optional<RecipeUser> maybeRecipeUser = userService.findById(userId);
+        if (maybeRecipeUser.isEmpty())
+            return "error";
+
+        model.addAttribute("content", new Contents());
+        model.addAttribute("user", maybeRecipeUser.get());
+        return "/user/ingredient_contents_form";
+    }
+    @PostMapping("/{userId}/ingredients/new")
+    public String saveAddingNewIngredient(@ModelAttribute Contents contents , @PathVariable("userId") Integer userId){
+        log.info("Saving ingredient contents for user -> {}, id -> {}", contents, userId);
+        userService.addIngredient(userId, contents);
+        log.info ("After saving");
+
+        return "redirect:/me/" + userId + "/show";
+    }
+    @GetMapping("{id}/show")
+    public String getById(@PathVariable("id") Integer userId, Model model){
+        Optional<RecipeUser> maybeRecipe = userService.findById(userId);
+        if (maybeRecipe.isPresent()) {
+            RecipeUser user = maybeRecipe.get();
+            model.addAttribute("user", user);
+            return "user/profile";
+        }
+        return "error";
     }
 }

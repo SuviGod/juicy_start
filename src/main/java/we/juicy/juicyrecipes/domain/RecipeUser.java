@@ -22,4 +22,8 @@ public class RecipeUser {
     @OneToMany(mappedBy = "recipeUser")
     private List<Contents> amountPresent = new ArrayList<>();
 
+    public void addContents(Contents contents){
+        amountPresent.add(contents);
+        contents.setRecipeUser(this);
+    }
 }
