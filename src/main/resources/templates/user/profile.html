@@ -20,45 +20,42 @@
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
+
+            <div class="row">
+                <div class="col-md-10">
+                    <h1 th:text="${'Hello, ' + user.name}">Hello, user</h1>
+                </div>
+                <div class="col-md-2">
+                    <a href="#" th:href="@{/}" class="btn">Back to menu</a>
+                </div>
+            </div>
             <div class="pannel-group">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h1 class="panel-title" > Name  </h1>
-                        <h2 class="panel-title" th:text="${user.name}">//Name//</h2>
+                        <h1 class="panel-title" >Profile</h1>
                     </div>
-
-                </div>
-<!--                <div class="panel panel-primary">-->
-<!--                    <div class="panel-heading">-->
-<!--                        <h1 class="panel-title"> UserName</h1>-->
-<!--                        <h2 class="panel-title" th:text="${user.username}">//UserName//</h2>-->
-<!--                    </div>-->
-
-                </div>
-                <div>
-                    <a href="#" th:href="@{'/me/' + ${user.id} + '/ingredients/new'}" class="btn btn-default">Add Ingredient</a>
                 </div>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h1 class="panel-title">Owner`s Ingredients</h1>
                     </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <ul>
-                                    <li th:remove="all">1 Cup of milk</li>
-                                    <li th:remove="all">1 Teaspoon of chocolate</li>
-                                    <li th:each="contentsIngredient : ${user.amountPresent}"
-                                        th:text="${(contentsIngredient.amount +
-                                                                    ' ' + contentsIngredient.ingredient.type +
-                                                                    ' - ' + contentsIngredient.ingredient.name)}">1 Teaspoon of
-                                        Sugar
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+<!--                    <div class="panel-body">-->
+                        <table class="table">
+                            <tr th:each="contentsIngredient : ${user.amountPresent}">
+                                <td th:text="${(contentsIngredient.amount +
+                                                        ' ' + contentsIngredient.ingredient.type +
+                                                        ' - ' + contentsIngredient.ingredient.name)}">1 Teaspoon of
+                                    Sugar
+
+                                </td>
+                            </tr>
+                        </table>
+<!--                    </div>-->
+                    <div class="panel-footer">
+                        <a href="#" th:href="@{'/me/' + ${user.id} + '/ingredients/new'}" class="btn btn-default">Add Ingredient</a>
                     </div>
                 </div>
+            <h2>Here is the recipes that you can prepare</h2>
             <div class="table-responsive" th:if="${not #lists.isEmpty(matchedRecipes)}">
                 <table class="table table-hover ">
                     <thead class="thead-inverse">

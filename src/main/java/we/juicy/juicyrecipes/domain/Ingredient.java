@@ -24,4 +24,14 @@ public class Ingredient {
 
     @ManyToMany(mappedBy = "ingredients")
     private List<IngredientCategory> categories = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Ingredient{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type=" + type +
+                ", categories=" + categories +
+                '}';
+    }
 }
