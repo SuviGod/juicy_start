@@ -22,4 +22,9 @@ public class IngredientCategoryServiceImpl implements IngredientCategoryService{
         ingredientCategoryRepository.findAll().forEach(ingredientCategories::add);
         return ingredientCategories;
     }
+
+    @Override
+    public IngredientCategory updateIngredientCategory(IngredientCategory ingredientCategoryToUpdate) {
+        return ingredientCategoryRepository.save(ingredientCategoryToUpdate);
+    }
 }
