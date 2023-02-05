@@ -22,11 +22,13 @@ public class IngredientCategory {
     @Column(unique = true)
     private String name;
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "ingredient_ingredient_category",
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "ingredient_id")
     )
     private List<Ingredient> ingredients = new ArrayList<>();
+
+
 }

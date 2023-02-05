@@ -6,10 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import we.juicy.juicyrecipes.domain.Contents;
+import we.juicy.juicyrecipes.domain.Recipe;
 import we.juicy.juicyrecipes.domain.RecipeUser;
 import we.juicy.juicyrecipes.service.IngredientService;
 import we.juicy.juicyrecipes.service.SingleUserService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -25,8 +27,12 @@ public class UserController {
     public String getUser(Model model) {
         try {
             RecipeUser currentUser = userService.getCurrentUser();
+            List<Recipe> matchedRecipes = userService.findRecipesForUserIngredientContents();
+
             log.info("User is -> {}", currentUser);
+
             model.addAttribute("user", currentUser);
+            model.addAttribute("matchedRecipes", matchedRecipes);
         } catch (RuntimeException ex) {
             log.info("User is not found. Trying to create new.");
             return "redirect:/me/register";

@@ -67,12 +67,15 @@ public class RecipePreload implements ApplicationListener<ContextRefreshedEvent>
     }
 
     private List<Ingredient> createIngredientsWithCategory(){
+        List<IngredientCategory> allIngredients = ingredientCategoryRepository.findAll();
         Ingredient cherry = Ingredient.builder()
-                .categories(ingredientCategoryRepository.findAll())
+                .categories(allIngredients)
                 .id(3)
                 .name("cherry")
                 .type(TypeOfMeasure.POINTS)
                 .build();
+        ingredientRepository.save(cherry);
+        allIngredients.stream().peek(it -> it.getIngredients().add(cherry)).forEach(ingredientCategoryRepository::save);
         return List.of(cherry);
     }
 
