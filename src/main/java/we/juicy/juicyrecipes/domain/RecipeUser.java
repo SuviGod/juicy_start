@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,5 +26,14 @@ public class RecipeUser {
     public void addContents(Contents contents){
         amountPresent.add(contents);
         contents.setRecipeUser(this);
+    }
+
+    @Override
+    public String toString() {
+        return "RecipeUser{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", amountPresent=" + amountPresent +
+                '}';
     }
 }

@@ -7,7 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data @Builder @NoArgsConstructor @AllArgsConstructor
 @Entity
@@ -25,6 +27,9 @@ public class Recipe {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "recipe")
     private List<Contents> necessaryAmount = new ArrayList<>();
+
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "recipe")
+//    private Set<Contents> necessaryAmount = new HashSet<>();
 
     public void addContents(Contents contents) {
         necessaryAmount.add(contents);

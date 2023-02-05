@@ -12,6 +12,7 @@ import we.juicy.juicyrecipes.repository.RecipeRepository;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -46,14 +47,24 @@ public class RecipeServiceImpl implements RecipeService {
             throw new RuntimeException("Recipe with id is not found");
 
         Recipe recipe = maybeRecipe.get();
-        contents.setRecipe(recipe);
+        Optional<Contents> ingredientContents = recipe.getNecessaryAmount()
+                .stream()
+                .filter(it -> it.getIngredient().equals(contents.getIngredient()))
+                .findFirst();
 
-        Contents savedContents = contentsRepository.save(contents);
-        recipe.addContents(savedContents);
+        if (ingredientContents.isEmpty()) {
+            contents.setRecipe(recipe);
+            Contents savedContents = contentsRepository.save(contents);
+            recipe.addContents(savedContents);
+        } else {
+            Contents updatedIngredientContents = ingredientContents.get();
+            updatedIngredientContents.setAmount(updatedIngredientContents.getAmount() + contents.getAmount());
+            contentsRepository.save(updatedIngredientContents);
+        }
+
         return recipeRepository.save(recipe);
     }
 
-    @Transactional
     @Override
     public Recipe save(Recipe recipe){
         return recipeRepository.save(recipe);

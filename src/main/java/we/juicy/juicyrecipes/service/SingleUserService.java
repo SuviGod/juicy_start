@@ -33,6 +33,7 @@ public class SingleUserService {
     public Optional<RecipeUser> findById(Integer id){
         return userRepository.findById(id);
     }
+
     @Transactional
     public RecipeUser addIngredient(Integer id, Contents contents){
         Optional<RecipeUser> maybeUser = userRepository.findById(id);
@@ -46,4 +47,6 @@ public class SingleUserService {
         user.addContents(savedContents);
         return userRepository.save(user);
     }
+
+
 }

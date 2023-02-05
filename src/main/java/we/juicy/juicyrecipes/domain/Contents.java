@@ -25,4 +25,15 @@ public class Contents {
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
     private RecipeUser recipeUser;
+
+    @Override
+    public String toString() {
+        return "Contents{" +
+                "id=" + id +
+                ", ingredient=" + ingredient +
+                ", amount=" + amount +
+                ", recipe=" + recipe +
+                ", recipeUser=" + recipeUser +
+                '}';
+    }
 }

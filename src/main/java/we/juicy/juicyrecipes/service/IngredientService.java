@@ -13,8 +13,6 @@ public interface IngredientService {
 
     Set<Ingredient> findAll();
 
-
-
     Ingredient updateIngredient(Ingredient ingredientToUpdate);
 
     Set<Ingredient> findAllByCategory(String category);

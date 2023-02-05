@@ -60,6 +60,7 @@ public class UserController {
         model.addAttribute("user", maybeRecipeUser.get());
         return "/user/ingredient_contents_form";
     }
+
     @PostMapping("/{userId}/ingredients/new")
     public String saveAddingNewIngredient(@ModelAttribute Contents contents , @PathVariable("userId") Integer userId){
         log.info("Saving ingredient contents for user -> {}, id -> {}", contents, userId);
@@ -68,6 +69,7 @@ public class UserController {
 
         return "redirect:/me/" + userId + "/show";
     }
+
     @GetMapping("{id}/show")
     public String getById(@PathVariable("id") Integer userId, Model model){
         Optional<RecipeUser> maybeRecipe = userService.findById(userId);
