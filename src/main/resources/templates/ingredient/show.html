@@ -72,7 +72,7 @@
                 <td th:text="${category.getId()}">334</td>
                 <td th:text="${category.getName()}">Tasty Goodnees 3</td>
                 <td><a href="#" th:href="@{'/ingredient/all?category=' + ${category.getName()}}">View</a></td>
-                <td><a href="#" th:href="@{'/ingredient-ingredient-category/' + ${category.getId()} + '/delete'}">Delete</a></td>
+                <td><a href="#" th:href="@{/ingredient-ingredient-category/delete(categoryId=${category.getId()}, ingredientId=${ingredient.getId()})}">Delete</a></td>
               </tr>
             </table>
           </div>
