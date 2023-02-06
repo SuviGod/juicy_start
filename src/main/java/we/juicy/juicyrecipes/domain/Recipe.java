@@ -7,9 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Data @Builder @NoArgsConstructor @AllArgsConstructor
 @Entity
@@ -35,4 +33,13 @@ public class Recipe {
         necessaryAmount.add(contents);
         contents.setRecipe(this);
     }
+    @Override
+    public String toString(){
+        return "RecipeUser{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", necessaryAmount=" + necessaryAmount +
+                '}';
+    }
+
 }

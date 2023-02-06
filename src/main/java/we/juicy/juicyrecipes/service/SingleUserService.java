@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import we.juicy.juicyrecipes.domain.Contents;
-import we.juicy.juicyrecipes.domain.Ingredient;
 import we.juicy.juicyrecipes.domain.Recipe;
 import we.juicy.juicyrecipes.domain.RecipeUser;
 import we.juicy.juicyrecipes.repository.ContentsRepository;
@@ -13,7 +12,6 @@ import we.juicy.juicyrecipes.repository.UserRepository;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -48,10 +46,20 @@ public class SingleUserService {
             throw new RuntimeException("User with id is not found");
 
         RecipeUser user = maybeUser.get();
-        contents.setRecipeUser(user);
+        Optional<Contents> ingredientContents = user.getAmountPresent()
+                        .stream()
+                        .filter(it -> it.getIngredient().equals(contents.getIngredient()))
+                        .findFirst();
+        if (ingredientContents.isEmpty()) {
+            contents.setRecipeUser(user);
+            Contents savedContents = contentsRepository.save(contents);
+            user.addContents(savedContents);
+        } else {
+            Contents updatedIngredientContents = ingredientContents.get();
+            updatedIngredientContents.setAmount(updatedIngredientContents.getAmount() + contents.getAmount());
+            contentsRepository.save(updatedIngredientContents);
+        }
 
-        Contents savedContents = contentsRepository.save(contents);
-        user.addContents(savedContents);
         return userRepository.save(user);
     }
 

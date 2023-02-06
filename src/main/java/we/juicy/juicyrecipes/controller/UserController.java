@@ -69,7 +69,7 @@ public class UserController {
 
     @PostMapping("/{userId}/ingredients/new")
     public String saveAddingNewIngredient(@ModelAttribute Contents contents , @PathVariable("userId") Integer userId){
-        log.info("Saving ingredient contents for user -> {}, id -> {}", contents, userId);
+        //log.info("Saving ingredient contents for user -> {}, id -> {}", contents, userId);
         userService.addIngredient(userId, contents);
         log.info ("After saving");
 

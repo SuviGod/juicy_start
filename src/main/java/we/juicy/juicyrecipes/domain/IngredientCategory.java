@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,4 +27,5 @@ public class IngredientCategory {
             inverseJoinColumns = @JoinColumn(name = "ingredientId", referencedColumnName = "id")
     )
     private List<Ingredient> ingredients = new ArrayList<>();
+
 }
