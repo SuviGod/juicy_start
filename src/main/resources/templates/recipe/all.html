@@ -35,8 +35,8 @@
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>View</th>
-                                <th>Update</th>
-                                <th>Delete</th>
+<!--                                <th>Update</th>-->
+<!--                                <th>Delete</th>-->
                             </tr>
                             </thead>
                             <tr th:remove="all">
@@ -44,25 +44,27 @@
                                 <td>Tasty Goodnees 1</td>
                                 <td><a href="#">View</a></td>
                             </tr>
-                            <tr th:remove="all">
-                                <td>12333</td>
-                                <td>Tasty Goodnees 2</td>
-                                <td><a href="#">View</a></td>
-                            </tr>
+<!--                            <tr th:remove="all">-->
+<!--                                <td>12333</td>-->
+<!--                                <td>Tasty Goodnees 2</td>-->
+<!--                                <td><a href="#">View</a></td>-->
+<!--                            </tr>-->
                             <tr th:each="recipe : ${recipes}">
                                 <td th:text="${recipe.id}">334</td>
                                 <td th:text="${recipe.name}">Tasty Goodnees 3</td>
                                 <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/show'}">View</a></td>
-                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/update'}">Update</a></td>
-                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/delete'}">Delete</a></td>
+
                             </tr>
                         </table>
                     </div>
                 </div>
-                <form method="GET" action="/recipe/new">
-                    <input type="submit" value="Add new Recipe" />
-                </form>
             </div>
+            <div class="panel-footer">
+                <a href="#" th:href="@{'/recipe/new'}" class="btn btn-default">Add Recipe</a>
+            </div>
+<!--            <form method="GET" action="/recipe/new">-->
+<!--                <input type="submit" value="Add new Recipe" />-->
+<!--            </form>-->
         </div>
     </div>
 </div>
