@@ -84,5 +84,4 @@ public class SingleUserService {
                 .anyMatch(it -> it.getIngredient().equals(ingredientContents.getIngredient())
                         && it.getAmount() >= ingredientContents.getAmount());
     }
-
 }

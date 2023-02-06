@@ -4,8 +4,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-import we.juicy.juicyrecipes.domain.*;
-import we.juicy.juicyrecipes.repository.*;
+import we.juicy.juicyrecipes.domain.Contents;
+import we.juicy.juicyrecipes.domain.Difficulty;
+import we.juicy.juicyrecipes.domain.Ingredient;
+import we.juicy.juicyrecipes.domain.IngredientCategory;
+import we.juicy.juicyrecipes.domain.Recipe;
+import we.juicy.juicyrecipes.domain.RecipeUser;
+import we.juicy.juicyrecipes.domain.TypeOfMeasure;
+import we.juicy.juicyrecipes.repository.ContentsRepository;
+import we.juicy.juicyrecipes.repository.IngredientCategoryRepository;
+import we.juicy.juicyrecipes.repository.IngredientRepository;
+import we.juicy.juicyrecipes.repository.RecipeRepository;
+import we.juicy.juicyrecipes.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +36,6 @@ public class RecipePreload implements ApplicationListener<ContextRefreshedEvent>
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         recipeRepository.saveAll(getDefaultRecipes());
-//        userRepository.save(createBaseUser());
         ingredientCategoryRepository.saveAll(createDefaultIngredientCategories());
         ingredientRepository.saveAll(createIngredientsWithCategory());
     }

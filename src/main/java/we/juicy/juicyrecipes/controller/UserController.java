@@ -4,8 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import we.juicy.juicyrecipes.domain.Contents;
 import we.juicy.juicyrecipes.domain.Recipe;
 import we.juicy.juicyrecipes.domain.RecipeUser;
@@ -15,16 +18,14 @@ import we.juicy.juicyrecipes.service.SingleUserService;
 import java.util.List;
 import java.util.Optional;
 
-@Slf4j
-@Controller
-@RequestMapping("/me")
-@RequiredArgsConstructor
+@Slf4j @RequiredArgsConstructor
+@Controller @RequestMapping("/me")
 public class UserController {
 
     private final SingleUserService userService;
     private final IngredientService ingredientService;
 
-    @GetMapping()
+    @GetMapping
     public String getUser(Model model) {
         try {
             RecipeUser currentUser = userService.getCurrentUser();
@@ -76,7 +77,6 @@ public class UserController {
 
     @PostMapping("/{userId}/ingredients/new")
     public String saveAddingNewIngredient(@ModelAttribute Contents contents , @PathVariable("userId") Integer userId, Model model){
-        //log.info("Saving ingredient contents for user -> {}, id -> {}", contents, userId);
         if (contents.getAmount() <= 0) {
             return addNewIngredient(userId, model);
         }

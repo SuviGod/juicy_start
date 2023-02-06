@@ -3,15 +3,13 @@ package we.juicy.juicyrecipes.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import we.juicy.juicyrecipes.domain.IngredientCategory;
-import we.juicy.juicyrecipes.domain.IngredientIngredientCategory;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import we.juicy.juicyrecipes.service.IngredientIngredientCategoryService;
 
-@Controller
-@Slf4j
-@RequiredArgsConstructor
-@RequestMapping("/ingredient-ingredient-category")
+@Slf4j @RequiredArgsConstructor
+@Controller @RequestMapping("/ingredient-ingredient-category")
 public class IngredientIngredientCategoryController {
     private final IngredientIngredientCategoryService ingredientIngredientCategoryService;
 

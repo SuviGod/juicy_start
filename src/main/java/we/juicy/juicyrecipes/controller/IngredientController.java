@@ -14,13 +14,11 @@ import we.juicy.juicyrecipes.service.IngredientService;
 import java.util.Optional;
 import java.util.Set;
 
-@Controller
-@Slf4j
-@RequiredArgsConstructor
-@RequestMapping("/ingredient")
+@Slf4j @RequiredArgsConstructor
+@Controller @RequestMapping("/ingredient")
 public class IngredientController {
-    private final IngredientService ingredientService;
 
+    private final IngredientService ingredientService;
     private final IngredientCategoryService ingredientCategoryService;
 
     @GetMapping(value ="/all")
@@ -33,17 +31,13 @@ public class IngredientController {
             log.info("Requesting for all ingredients");
             Set<Ingredient> allIngredients = ingredientService.findAll();
             model.addAttribute("ingredients", allIngredients);
-            log.info("going into ingredient/all");
             return "ingredient/all";
         }
 
-        log.info("Requesting for all ingredients for group {}", category);
         Set<Ingredient> allIngredients = ingredientService.findAllByCategory(category);
         model.addAttribute("ingredients", allIngredients);
-        log.info("going into ingredient/all with category");
         return "ingredient/all";
     }
-
 
     @GetMapping(value = "/{id}/show")
     public String showById(@PathVariable("id") Integer id, Model model ){

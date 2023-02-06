@@ -12,7 +12,6 @@ import we.juicy.juicyrecipes.repository.RecipeRepository;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service

@@ -1,6 +1,14 @@
 package we.juicy.juicyrecipes.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,8 +17,8 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data @Builder @NoArgsConstructor @AllArgsConstructor
 @Entity
+@Data @Builder @NoArgsConstructor @AllArgsConstructor
 public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +33,6 @@ public class Recipe {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "recipe")
     private List<Contents> necessaryAmount = new ArrayList<>();
-
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "recipe")
-//    private Set<Contents> necessaryAmount = new HashSet<>();
 
     public void addContents(Contents contents) {
         necessaryAmount.add(contents);

@@ -15,13 +15,11 @@ import we.juicy.juicyrecipes.service.IngredientService;
 
 import java.util.Set;
 
-@Controller
-@Slf4j
-@RequiredArgsConstructor
-@RequestMapping("/ingredient-category")
+@Slf4j @RequiredArgsConstructor
+@Controller @RequestMapping("/ingredient-category")
 public class IngredientCategoryController {
-    private final IngredientCategoryService ingredientCategoryService;
 
+    private final IngredientCategoryService ingredientCategoryService;
     private final IngredientService ingredientService;
 
     @GetMapping("/new")

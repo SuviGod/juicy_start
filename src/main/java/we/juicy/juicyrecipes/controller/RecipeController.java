@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import we.juicy.juicyrecipes.domain.Contents;
 import we.juicy.juicyrecipes.domain.Recipe;
 import we.juicy.juicyrecipes.service.IngredientService;
@@ -18,17 +17,14 @@ import we.juicy.juicyrecipes.service.RecipeService;
 import java.util.Optional;
 import java.util.Set;
 
-
-@Controller
-@Slf4j
-@RequiredArgsConstructor
-@RequestMapping(value = "/recipe")
+@Slf4j @RequiredArgsConstructor
+@Controller @RequestMapping(value = "/recipe")
 public class RecipeController {
 
     private final RecipeService recipeService;
     private final IngredientService ingredientService;
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @GetMapping("/all")
     public String getRecipe(Model model) {
         log.info("Requesting for all recipes");
         Set<Recipe> allRecipes = recipeService.findAll();
