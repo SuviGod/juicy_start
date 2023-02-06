@@ -27,18 +27,6 @@
             <h1 class="panel-title" th:text="${ingredient.name}">Ingredient Name Here!</h1>
           </div>
           <div class="panel-body">
-            <!--                        <div class="row">-->
-            <!--                            <div class="col-md-3">-->
-            <!--                                <h5>Categories:</h5>-->
-            <!--                            </div>-->
-            <!--                            <div class="col-md-9">-->
-            <!--                                <ul>-->
-            <!--                                    <li th:remove="all">cat one</li>-->
-            <!--                                    <li th:remove="all">cat two</li>-->
-            <!--                                    <li th:each="category : ${recipe.categories}" th:text="${category.getDescription()}">cat three</li>-->
-            <!--                                </ul>-->
-            <!--                            </div>-->
-            <!--                        </div>-->
             <div class="row">
               <div class="col-md-3">
                 <h5>Type Of Measure:</h5>
@@ -67,7 +55,6 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>View</th>
-                <th>Update</th>
                 <th>Delete</th>
               </tr>
               </thead>
@@ -84,9 +71,8 @@
               <tr th:each="category : ${ingredient.getCategories()}">
                 <td th:text="${category.getId()}">334</td>
                 <td th:text="${category.getName()}">Tasty Goodnees 3</td>
-                <td><a href="#" th:href="@{'/recipe/' + ${category.getId()} + '/show'}">View</a></td>
-                <td><a href="#" th:href="@{'/recipe/' + ${category.getId()} + '/update'}">Update</a></td>
-                <td><a href="#" th:href="@{'/recipe/' + ${category.getId()} + '/delete'}">Delete</a></td>
+                <td><a href="#" th:href="@{'/ingredient/all?category=' + ${category.getName()}}">View</a></td>
+                <td><a href="#" th:href="@{'/ingredient-ingredient-category/' + ${category.getId()} + '/delete'}">Delete</a></td>
               </tr>
             </table>
           </div>

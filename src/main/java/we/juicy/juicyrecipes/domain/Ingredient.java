@@ -34,4 +34,10 @@ public class Ingredient {
                 ", categories=" + categories +
                 '}';
     }
+
+    public void setCategoryRelation(){
+        for(IngredientCategory category : this.getCategories()){
+            category.getIngredients().add(this);
+        }
+    }
 }

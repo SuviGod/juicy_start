@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Data
 @Builder @NoArgsConstructor @AllArgsConstructor
 public class IngredientCategory {
     @Id
@@ -24,11 +24,9 @@ public class IngredientCategory {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "ingredient_ingredient_category",
-            joinColumns = @JoinColumn(name = "category_id"),
-            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
+            name = "IngredientIngredientCategory",
+            joinColumns = @JoinColumn(name = "categoryId", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredientId", referencedColumnName = "id")
     )
     private List<Ingredient> ingredients = new ArrayList<>();
-
-
 }
