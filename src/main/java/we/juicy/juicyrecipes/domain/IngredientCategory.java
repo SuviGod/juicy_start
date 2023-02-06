@@ -28,4 +28,11 @@ public class IngredientCategory {
     )
     private List<Ingredient> ingredients = new ArrayList<>();
 
+    @Override
+    public String toString() {
+        return "IngredientCategory{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

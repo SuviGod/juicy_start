@@ -33,7 +33,6 @@ public class RecipeUser {
         return "RecipeUser{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", amountPresent=" + amountPresent +
                 '}';
     }
 }

@@ -48,8 +48,7 @@
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Measure</th>
-                                <th>Update</th>
-                                <th>Delete</th>
+                                <th>Show</th>
                             </tr>
                             </thead>
                             <tr th:remove="all">
@@ -66,6 +65,7 @@
                                 <td th:text="${ingredient.getId()}">334</td>
                                 <td th:text="${ingredient.getName()}">Tasty Goodnees 3</td>
                                 <td th:text="${ingredient.getType()}">Huitype</td>
+                                <td><a href="#" th:href="@{'/ingredient/' + ${ingredient.id} + '/show'}">Show</a></td>
                             </tr>
                         </table>
                     </div>

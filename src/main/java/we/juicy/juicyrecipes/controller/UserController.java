@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.util.StringUtils;
 import we.juicy.juicyrecipes.domain.Contents;
 import we.juicy.juicyrecipes.domain.Recipe;
 import we.juicy.juicyrecipes.domain.RecipeUser;
@@ -58,22 +59,32 @@ public class UserController {
     @GetMapping("/{userId}/ingredients/new")
     public String addNewIngredient(@PathVariable("userId") Integer userId, Model model ){
         model.addAttribute("ingredients", ingredientService.findAll());
-        Optional<RecipeUser> maybeRecipeUser = userService.findById(userId);
-        if (maybeRecipeUser.isEmpty())
-            return "error";
+        Optional<RecipeUser> maybeRecipeUser = getUserById(userId);
 
         model.addAttribute("content", new Contents());
         model.addAttribute("user", maybeRecipeUser.get());
         return "/user/ingredient_contents_form";
     }
 
+    private Optional<RecipeUser> getUserById(Integer userId) {
+        Optional<RecipeUser> maybeRecipeUser = userService.findById(userId);
+        if (maybeRecipeUser.isEmpty())
+            throw new RuntimeException("User is not found");
+
+        return maybeRecipeUser;
+    }
+
     @PostMapping("/{userId}/ingredients/new")
-    public String saveAddingNewIngredient(@ModelAttribute Contents contents , @PathVariable("userId") Integer userId){
+    public String saveAddingNewIngredient(@ModelAttribute Contents contents , @PathVariable("userId") Integer userId, Model model){
         //log.info("Saving ingredient contents for user -> {}, id -> {}", contents, userId);
+        if (contents.getAmount() <= 0) {
+            return addNewIngredient(userId, model);
+        }
+
         userService.addIngredient(userId, contents);
         log.info ("After saving");
 
-        return "redirect:/me/" + userId + "/show";
+        return "redirect:/me";
     }
 
     @GetMapping("{id}/show")

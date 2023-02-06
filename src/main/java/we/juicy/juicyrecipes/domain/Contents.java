@@ -33,7 +33,7 @@ public class Contents {
                 ", ingredient=" + ingredient +
                 ", amount=" + amount +
                 ", recipe=" + recipe +
-                ", recipeUser=" + recipeUser +
+                ", recipeUser=" + recipeUser.getName() +
                 '}';
     }
 

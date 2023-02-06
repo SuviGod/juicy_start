@@ -38,7 +38,6 @@ public class Recipe {
         return "RecipeUser{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", necessaryAmount=" + necessaryAmount +
                 '}';
     }
 
