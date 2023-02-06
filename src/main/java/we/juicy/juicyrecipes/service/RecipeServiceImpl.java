@@ -6,10 +6,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import we.juicy.juicyrecipes.domain.Contents;
 import we.juicy.juicyrecipes.domain.Recipe;
+import we.juicy.juicyrecipes.domain.RecipeUser;
+import we.juicy.juicyrecipes.dto.IngredientContentsDifference;
 import we.juicy.juicyrecipes.repository.ContentsRepository;
 import we.juicy.juicyrecipes.repository.RecipeRepository;
+import we.juicy.juicyrecipes.repository.UserRepository;
 
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -20,6 +25,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     private final RecipeRepository recipeRepository;
     private final ContentsRepository contentsRepository;
+    private final UserRepository userRepository;
 
     @Override
     public Set<Recipe> findAll() {
@@ -69,6 +75,39 @@ public class RecipeServiceImpl implements RecipeService {
         return recipeRepository.save(recipe);
     }
 
+    @Override
+    public List<IngredientContentsDifference> findMissingIngredientAndAmount(Integer recipeId){
+        Optional<Recipe> maybeRecipe = recipeRepository.findById(recipeId);
+        if (maybeRecipe.isEmpty()){
+            throw new RuntimeException("Recipe is not found");
+        }
+        Optional<RecipeUser> maybeUser = userRepository.findById(1);
+        if (maybeUser.isEmpty())
+            return Collections.emptyList();
 
+        List<Contents> recipeContents = maybeRecipe.get().getNecessaryAmount();
+        List<Contents> userContents = maybeUser.get().getAmountPresent();
 
+        return recipeContents.stream()
+                .map(it -> countDifference(it, userContents))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .toList();
+    }
+
+    private Optional<IngredientContentsDifference> countDifference(Contents recipeContents, List<Contents> userContents) {
+        Optional<Contents> maybeIngredientContents = userContents.stream().filter(userIngredient -> userIngredient.getIngredient().equals(recipeContents.getIngredient())).findFirst();
+        if (maybeIngredientContents.isEmpty()) {
+            return Optional.of(new IngredientContentsDifference(recipeContents.getIngredient(), recipeContents.getAmount()));
+        }
+
+        Contents userIngredientContents = maybeIngredientContents.get();
+        int diffAmount = recipeContents.getAmount() - userIngredientContents.getAmount();
+
+        if (diffAmount > 0) {
+            return Optional.of(new IngredientContentsDifference(recipeContents.getIngredient(), diffAmount));
+        }
+
+        return Optional.empty();
+    }
 }

@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import we.juicy.juicyrecipes.domain.Contents;
 import we.juicy.juicyrecipes.domain.Recipe;
+import we.juicy.juicyrecipes.dto.IngredientContentsDifference;
 import we.juicy.juicyrecipes.service.IngredientService;
 import we.juicy.juicyrecipes.service.RecipeService;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -39,6 +41,7 @@ public class RecipeController {
         if (maybeRecipe.isPresent()) {
             Recipe recipe = maybeRecipe.get();
             model.addAttribute("recipe", recipe);
+            model.addAttribute("contentsDifference", recipeService.findMissingIngredientAndAmount(id));
             return "recipe/show";
         }
         return "error";

@@ -100,6 +100,34 @@
                         </div>
                     </div>
                 </div>
+                <div class="row" th:if="${not #lists.isEmpty(contentsDifference)}">
+                    <div class="col-md-10">
+                        <h2>This is the difference that you need to get:</h2>
+                    </div>
+                </div>
+                <div class="panel panel-default" th:if="${not #lists.isEmpty(contentsDifference)}">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">Differences</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="thead-inverse">
+                                <tr>
+                                    <th>Ingredient</th>
+                                    <th>Necessary amount</th>
+                                    <th>Measure</th>
+                                </tr>
+                                </thead>
+                                <tr th:each="difference : ${contentsDifference}">
+                                    <td th:text="${difference.ingredient.name}">Ingredient</td>
+                                    <td th:text="${difference.difference}">Amount</td>
+                                    <td th:text="${difference.ingredient.type}">Type</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
