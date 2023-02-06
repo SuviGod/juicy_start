@@ -8,5 +8,5 @@ import we.juicy.juicyrecipes.domain.Ingredient;
 @AllArgsConstructor
 public class IngredientContentsDifference {
     private Ingredient ingredient;
-    private Integer difference;
+    private Double difference;
 }

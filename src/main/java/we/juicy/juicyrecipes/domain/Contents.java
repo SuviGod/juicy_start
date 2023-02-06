@@ -12,6 +12,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.math.BigDecimal;
+
 @Slf4j
 @Entity
 @Data @Builder @NoArgsConstructor @AllArgsConstructor
@@ -23,13 +25,23 @@ public class Contents {
     @ManyToOne(fetch = FetchType.EAGER)
     private Ingredient ingredient;
 
-    private Integer amount;
+    private BigDecimal amount;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Recipe recipe;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
     private RecipeUser recipeUser;
+
+    public void setAmount(Double amount) {
+        this.amount = new BigDecimal(amount);
+    }
+
+    public Double getAmount() {
+        if (amount == null)
+            return .0;
+        return amount.doubleValue();
+    }
 
     @Override
     public String toString() {

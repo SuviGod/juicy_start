@@ -17,6 +17,7 @@ import we.juicy.juicyrecipes.repository.IngredientRepository;
 import we.juicy.juicyrecipes.repository.RecipeRepository;
 import we.juicy.juicyrecipes.repository.UserRepository;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -57,12 +58,12 @@ public class RecipePreload implements ApplicationListener<ContextRefreshedEvent>
 
         Ingredient appleIngredient = Ingredient.builder().id(1).type(TypeOfMeasure.POINTS).name("Apple").build();
         ingredientRepository.save(appleIngredient);
-        Contents appleContentsIngredient = Contents.builder().ingredient(appleIngredient).recipe(applePie).amount(1).id(1).build();
+        Contents appleContentsIngredient = Contents.builder().ingredient(appleIngredient).recipe(applePie).amount(new BigDecimal(1)).id(1).build();
         contentsRepository.save(appleContentsIngredient);
 
         Ingredient orangeIngredient = Ingredient.builder().id(2).type(TypeOfMeasure.POINTS).name("Orange").build();
         ingredientRepository.save(orangeIngredient);
-        Contents orangeContentsIngredient = Contents.builder().ingredient(orangeIngredient).recipe(orangePie).amount(2).id(2).build();
+        Contents orangeContentsIngredient = Contents.builder().ingredient(orangeIngredient).recipe(orangePie).amount(new BigDecimal(2)).id(2).build();
         contentsRepository.save(orangeContentsIngredient);
 
         return List.of(applePie, orangePie, pearPie);

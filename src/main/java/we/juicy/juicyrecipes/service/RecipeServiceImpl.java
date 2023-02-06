@@ -102,7 +102,7 @@ public class RecipeServiceImpl implements RecipeService {
         }
 
         Contents userIngredientContents = maybeIngredientContents.get();
-        int diffAmount = recipeContents.getAmount() - userIngredientContents.getAmount();
+        Double diffAmount = recipeContents.getAmount() - userIngredientContents.getAmount();
 
         if (diffAmount > 0) {
             return Optional.of(new IngredientContentsDifference(recipeContents.getIngredient(), diffAmount));
