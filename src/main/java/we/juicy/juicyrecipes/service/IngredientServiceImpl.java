@@ -3,6 +3,7 @@ package we.juicy.juicyrecipes.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import we.juicy.juicyrecipes.domain.Ingredient;
 import we.juicy.juicyrecipes.repository.IngredientCategoryRepository;
 import we.juicy.juicyrecipes.repository.IngredientRepository;
@@ -26,6 +27,7 @@ public class IngredientServiceImpl implements IngredientService{
     }
 
     @Override
+    @Transactional
     public Ingredient updateIngredient(Ingredient ingredientToUpdate) {
         ingredientToUpdate.setCategoryRelation();
         return ingredientRepository.save(ingredientToUpdate);
