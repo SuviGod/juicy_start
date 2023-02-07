@@ -6,6 +6,5 @@ import java.util.Set;
 
 public interface IngredientCategoryService {
     Set<IngredientCategory> findAll();
-
     IngredientCategory updateIngredientCategory(IngredientCategory ingredientCategoryToUpdate);
 }

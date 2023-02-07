@@ -87,6 +87,4 @@ public class RecipeController {
         model.addAttribute("recipes", allRecipesOrderedByDifficulty);
         return "recipe/ordered";
     }
-
-
 }

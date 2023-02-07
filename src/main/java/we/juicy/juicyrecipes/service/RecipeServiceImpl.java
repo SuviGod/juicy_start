@@ -71,12 +71,12 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public Recipe save(Recipe recipe){
+    public Recipe save(Recipe recipe) {
         return recipeRepository.save(recipe);
     }
 
     @Override
-    public List<IngredientContentsDifference> findMissingIngredientAndAmount(Integer recipeId){
+    public List<IngredientContentsDifference> findMissingIngredientAndAmount(Integer recipeId) {
         Optional<Recipe> maybeRecipe = recipeRepository.findById(recipeId);
         if (maybeRecipe.isEmpty()){
             throw new RuntimeException("Recipe is not found");
@@ -110,9 +110,9 @@ public class RecipeServiceImpl implements RecipeService {
 
         return Optional.empty();
     }
+
     @Override
     public Set<Recipe> findByOrderByDifficulty(){
         return recipeRepository.findByOrderByDifficulty();
     }
-
 }
