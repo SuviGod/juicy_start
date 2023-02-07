@@ -14,7 +14,7 @@ public class IngredientIngredientCategoryController {
     private final IngredientIngredientCategoryService ingredientIngredientCategoryService;
 
     @GetMapping("/delete")
-    public String deleteIngredientCategoryRelation(@RequestParam Integer categoryId, @RequestParam Integer ingredientId){
+    public String deleteIngredientCategoryRelation(@RequestParam Integer categoryId, @RequestParam Integer ingredientId) {
         log.info("In ingredient category relation /delete post mapping method ");
         ingredientIngredientCategoryService.deleteByCategoryIdAndIngredientId(categoryId, ingredientId);
         return "redirect:/ingredient/" + ingredientId + "/show";

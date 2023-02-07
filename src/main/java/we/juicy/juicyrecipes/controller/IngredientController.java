@@ -22,7 +22,7 @@ public class IngredientController {
     private final IngredientCategoryService ingredientCategoryService;
 
     @GetMapping(value ="/all")
-    public String showAllIngredients(@RequestParam(required = false) String category, Model model){
+    public String showAllIngredients(@RequestParam(required = false) String category, Model model) {
         log.info("Requesting for all ingredient categories");
         Set <IngredientCategory> ingredientCategories = ingredientCategoryService.findAll();
         model.addAttribute("categories", ingredientCategories);
@@ -40,7 +40,7 @@ public class IngredientController {
     }
 
     @GetMapping(value = "/{id}/show")
-    public String showById(@PathVariable("id") Integer id, Model model ){
+    public String showById(@PathVariable("id") Integer id, Model model ) {
         log.info("Requesting for ingredient with id -> {}", id);
         Optional<Ingredient> maybeIngredient = ingredientService.findById(id);
         if (maybeIngredient.isPresent()) {
@@ -53,7 +53,7 @@ public class IngredientController {
     }
 
     @GetMapping(value = "/new")
-    public String createIngredientForm(Model model){
+    public String createIngredientForm(Model model) {
         log.info("Requesting for all ingredient categories");
         Set<IngredientCategory> allIngredientCategories = ingredientCategoryService.findAll();
         model.addAttribute("allCategories", allIngredientCategories);
@@ -64,7 +64,7 @@ public class IngredientController {
     }
 
     @PostMapping(value = "/")
-    public String updateIngredient(@ModelAttribute Ingredient ingredientToUpdate){
+    public String updateIngredient(@ModelAttribute Ingredient ingredientToUpdate) {
         log.info("In ingredient post mapping method - creating new ingredient");
         Ingredient updatedIngredient = ingredientService.updateIngredient(ingredientToUpdate);
         return "redirect:/ingredient/" + updatedIngredient.getId() + "/show";

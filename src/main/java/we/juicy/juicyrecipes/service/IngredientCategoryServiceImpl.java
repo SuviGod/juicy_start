@@ -14,6 +14,7 @@ import java.util.Set;
 public class IngredientCategoryServiceImpl implements IngredientCategoryService{
 
     private final IngredientCategoryRepository ingredientCategoryRepository;
+
     @Override
     public Set<IngredientCategory> findAll() {
         Set<IngredientCategory> ingredientCategories = new HashSet<>();

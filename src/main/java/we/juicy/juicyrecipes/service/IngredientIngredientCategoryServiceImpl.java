@@ -9,7 +9,9 @@ import we.juicy.juicyrecipes.repository.IngredientIngredientCategoryRepository;
 @Service
 @RequiredArgsConstructor
 public class IngredientIngredientCategoryServiceImpl implements IngredientIngredientCategoryService {
+
     private final IngredientIngredientCategoryRepository ingredientIngredientCategoryRepository;
+
     @Override
     public void delete(IngredientIngredientCategory ingredientIngredientCategoryToDelete) {
         ingredientIngredientCategoryRepository.delete(ingredientIngredientCategoryToDelete);

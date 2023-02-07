@@ -30,7 +30,6 @@ public class UserController {
         try {
             RecipeUser currentUser = userService.getCurrentUser();
             List<Recipe> matchedRecipes = userService.findRecipesForUserIngredientContents();
-
             log.info("User is -> {}", currentUser);
 
             model.addAttribute("user", currentUser);
@@ -80,9 +79,7 @@ public class UserController {
         if (contents.getAmount() <= 0) {
             return addNewIngredient(userId, model);
         }
-
         userService.addIngredient(userId, contents);
-        log.info ("After saving");
 
         return "redirect:/me";
     }

@@ -28,7 +28,7 @@ public class Recipe {
     @Lob
     private String description;
 
-    @Enumerated(value = EnumType.STRING)
+    @Enumerated(value = EnumType.ORDINAL)
     private Difficulty difficulty;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "recipe")

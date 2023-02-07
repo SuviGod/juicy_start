@@ -16,7 +16,7 @@
             <div class="panel panel-default">
 
                 <div class="panel-heading">
-                    <h1 class="panel-title">My Recipes!</h1>
+                    <h1 class="panel-title">My Recipes Sorted by Difficulty!</h1>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive" th:if="${not #lists.isEmpty(recipes)}">
@@ -25,7 +25,6 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
-                                <th>Difficulty</th>
                                 <th>View</th>
                             </tr>
                             </thead>
@@ -48,7 +47,6 @@
                 </div>
             </div>
             <a th:href="@{/}" class="btn btn-dark">Back to Main Menu</a>
-            <a th:href="@{'/recipe/all/ordered'}" class="btn btn-dark">Get Recipe Ordered by Difficulty</a>
         </div>
     </div>
 </div>

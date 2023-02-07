@@ -27,17 +27,15 @@ public class IngredientCategoryController {
         log.info("Requesting for all ingredients");
         Set<Ingredient> allIngredients = ingredientService.findAll();
         model.addAttribute("allIngredients", allIngredients);
-
-
         model.addAttribute("category", new IngredientCategory());
-        log.info("Going into ingredientCategory/creation_form view");
+
         return "ingredientCategory/creation_form";
     }
 
     @PostMapping(value = "/")
     public String updateIngredientCategory(@ModelAttribute IngredientCategory ingredientCategoryToUpdate){
         log.info("In ingredient category post mapping method - creating new ingredient");
-        IngredientCategory updatedIngredientCategory = ingredientCategoryService.updateIngredientCategory(ingredientCategoryToUpdate);
+        ingredientCategoryService.updateIngredientCategory(ingredientCategoryToUpdate);
         return "redirect:/ingredient/all";
     }
 }

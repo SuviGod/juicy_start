@@ -35,12 +35,13 @@ public class SingleUserService {
         user.setId(SINGLE_USER_ID);
         return userRepository.save(user);
     }
-    public Optional<RecipeUser> findById(Integer id){
+
+    public Optional<RecipeUser> findById(Integer id) {
         return userRepository.findById(id);
     }
 
     @Transactional
-    public RecipeUser addIngredient(Integer id, Contents contents){
+    public RecipeUser addIngredient(Integer id, Contents contents) {
         Optional<RecipeUser> maybeUser = userRepository.findById(id);
         if (maybeUser.isEmpty())
             throw new RuntimeException("User with id is not found");
