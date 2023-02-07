@@ -15,6 +15,8 @@ public interface RecipeService {
     Recipe addIngredient(Integer recipeId, Contents contents);
     Recipe save(Recipe recipe);
     List<IngredientContentsDifference> findMissingIngredientAndAmount(Integer recipeId);
+    Set<Recipe> findByOrderByDifficulty();
+
 
 }
 

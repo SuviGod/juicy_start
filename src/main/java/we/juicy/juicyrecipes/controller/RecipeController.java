@@ -4,18 +4,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import we.juicy.juicyrecipes.domain.Contents;
 import we.juicy.juicyrecipes.domain.Recipe;
-import we.juicy.juicyrecipes.dto.IngredientContentsDifference;
 import we.juicy.juicyrecipes.service.IngredientService;
 import we.juicy.juicyrecipes.service.RecipeService;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -85,4 +79,14 @@ public class RecipeController {
 
         return "redirect:/recipe/" + recipeId + "/show";
     }
+
+    @GetMapping("/all/ordered")
+    public String getRecipesOrderedByDifficulty(Model model){
+        //log.info("Requesting for all recipes ordered by Difficulty");
+        Set<Recipe> allRecipesOrderedByDifficulty = recipeService.findByOrderByDifficulty();
+        model.addAttribute("recipes", allRecipesOrderedByDifficulty);
+        return "recipe/ordered";
+    }
+
+
 }

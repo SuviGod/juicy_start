@@ -110,4 +110,9 @@ public class RecipeServiceImpl implements RecipeService {
 
         return Optional.empty();
     }
+    @Override
+    public Set<Recipe> findByOrderByDifficulty(){
+        return recipeRepository.findByOrderByDifficulty();
+    }
+
 }
