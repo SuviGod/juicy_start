@@ -69,7 +69,7 @@ public class RecipeController {
 
         model.addAttribute("content", new Contents());
         model.addAttribute("recipe", maybeRecipe.get());
-        return "/recipe/ingredient_contents_form";
+        return "recipe/ingredient_contents_form";
     }
 
     @PostMapping("/{recipeId}/ingredients/new")
