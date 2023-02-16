@@ -1,12 +1,25 @@
 # Juicy application
 Recipe notes application
 
-### Prerequisites 
+## Prerequisites 
 - Apache Maven 4.0.0-alpha-4
 - Java 17.0.6
 
-### Start locally
-1. Clone project and `cd` to it
-2. Run command: `./mvnw -Dmaven.test.skip=true spring-boot:run`
+## Deploying with docker
+
+### Manually
+```bash
+docker build . -t your_image_name
+docker container run -p your_port:8080 your_image_name
+```
+### From existing image
+```bash
+docker image pull nykonoleg/jc_im_int20h
+```
+
+## Deploying with maven
+```
+./mvnw -Dmaven.test.skip=true spring-boot:run
+```
 
 
