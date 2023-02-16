@@ -39,7 +39,7 @@ public class UserController {
             return "redirect:/me/register";
         }
 
-        return "/user/profile";
+        return "user/profile";
     }
 
     @GetMapping("/register")
@@ -63,7 +63,7 @@ public class UserController {
 
         model.addAttribute("content", new Contents());
         model.addAttribute("user", maybeRecipeUser.get());
-        return "/user/ingredient_contents_form";
+        return "user/ingredient_contents_form";
     }
 
     private Optional<RecipeUser> getUserById(Integer userId) {
