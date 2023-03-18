@@ -1,5 +1,5 @@
 # Juicy application
-Recipe notes application
+Detailed explaining of task and requirements you can find in task and requirements.pdf
 
 ## Prerequisites 
 - Apache Maven 4.0.0-alpha-4
